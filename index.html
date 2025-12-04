@@ -7,16 +7,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']); 
     $comment = htmlspecialchars($_POST['message']); 
 
+ // تأكد أن المتغيرات ليست فارغة
     if (!empty($name) && !empty($comment)) {
-        // تجهيز شكل التعليق (الاسم والرسالة)
-        $new_comment = "<div class='user-comment'><strong>$name:</strong> $comment</div>\n";
         
-        // حفظ التعليق في الملف النصي
+        // --- التصحيح هنا ---
+        // يجب وضع المتغير $new_comment يساوي النص
+        $new_comment = "$name: $comment\n"; 
+        
+        // الآن الدالة ستجد المتغير $new_comment وتضيفه للملف
         file_put_contents($comments_file, $new_comment, FILE_APPEND);
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
