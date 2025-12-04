@@ -6,11 +6,14 @@ $comments_file = 'comments.txt'; // اسم الملف الذي ستحفظ فيه
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']); // استقبال الاسم وحمايته
     $comment = htmlspecialchars($_POST['message']); // استقبال الرسالة وحمايتها
-
+// تأكد أن المتغيرات ليست فارغة
     if (!empty($name) && !empty($comment)) {
-        // تنسيق التعليق ليظهر بشكل جميل
-        $new_comment = "<div class='user-comment'><strong>$name:</strong> $comment</div>\n";
-        // حفظ التعليق في الملف النصي
+        
+        // --- التصحيح هنا ---
+        // يجب وضع المتغير $new_comment يساوي النص
+        $new_comment = "$name: $comment\n"; 
+        
+        // الآن الدالة ستجد المتغير $new_comment وتضيفه للملف
         file_put_contents($comments_file, $new_comment, FILE_APPEND);
     }
 }
