@@ -1,19 +1,17 @@
 <?php
 // --- كود PHP لمعالجة وحفظ التعليقات ---
-$comments_file = 'comments.txt'; // اسم الملف الذي ستحفظ فيه التعليقات
+$comments_file = 'comments.txt'; 
 
 // التأكد من أن المستخدم ضغط على زر إرسال
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']); // استقبال الاسم وحمايته
-    $comment = htmlspecialchars($_POST['message']); // استقبال الرسالة وحمايتها
-// تأكد أن المتغيرات ليست فارغة
+    $name = htmlspecialchars($_POST['name']); 
+    $comment = htmlspecialchars($_POST['message']); 
+
     if (!empty($name) && !empty($comment)) {
+        // تجهيز شكل التعليق (الاسم والرسالة)
+        $new_comment = "<div class='user-comment'><strong>$name:</strong> $comment</div>\n";
         
-        // --- التصحيح هنا ---
-        // يجب وضع المتغير $new_comment يساوي النص
-        $new_comment = "$name: $comment\n"; 
-        
-        // الآن الدالة ستجد المتغير $new_comment وتضيفه للملف
+        // حفظ التعليق في الملف النصي
         file_put_contents($comments_file, $new_comment, FILE_APPEND);
     }
 }
@@ -24,49 +22,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جمهورية باكستان</title>
+    <title>إمبراطورية اليابان</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>جمهورية باكستان الإسلامية</h1>
+            <h1>إمبراطورية اليابان</h1>
         </header>
 
         <section class="info">
             <h2>نبذة تعريفية</h2>
             <p>
-                باكستان هي دولة تقع في جنوب آسيا. عاصمتها إسلام آباد، وتعتبر خامس أكبر دولة في العالم من حيث عدد السكان. 
-                تمتلك قوة عسكرية كبيرة وتتميز بتنوع جغرافي مذهل يجمع بين الجبال الجليدية في الشمال والسهول الخصبة.
+                اليابان هي دولة جزرية تقع في شرق آسيا في المحيط الهادئ. تُعرف باسم "بلاد الشمس المشرقة". 
+                عاصمتها طوكيو، وتشتهر عالمياً بجمعها المذهل بين التقاليد القديمة (مثل معابد الشنتو والساموراي) 
+                والتكنولوجيا فائقة التطور وناطحات السحاب الحديثة.
             </p>
         </section>
 
         <section class="media">
             <div class="card">
                 <h3>علم الدولة</h3>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Flag_of_Pakistan.svg/800px-Flag_of_Pakistan.svg.png" alt="علم باكستان">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png" alt="علم اليابان">
             </div>
 
             <div class="card">
                 <h3>خريطة الدولة</h3>
-                <img src="Mapp.png" alt="خريطة باكستان">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Japan_location_map.svg/640px-Japan_location_map.svg.png" alt="خريطة اليابان">
             </div>
         </section>
 
         <footer>
-            <a href="https://ar.wikipedia.org/wiki/باكستان" target="_blank" class="wiki-btn">
-                للمزيد من المعلومات على ويكيبيديا
+            <a href="https://ar.wikipedia.org/wiki/اليابان" target="_blank" class="wiki-btn">
+                اضغط هنا لمعلومات أكثر عن اليابان
             </a>
         </footer>
 
         <hr>
 
         <section class="comments-section">
-            <h2>اترك تعليقاً</h2>
+            <h2>شاركنا رأيك عن اليابان</h2>
             
             <form action="index.php" method="POST" class="comment-form">
-                <input type="text" name="name" placeholder="اكتب اسمك هنا" required>
+                <input type="text" name="name" placeholder="اسمك الكريم" required>
                 <textarea name="message" placeholder="اكتب تعليقك هنا..." required></textarea>
                 <button type="submit">إرسال التعليق</button>
             </form>
@@ -74,11 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="comments-list">
                 <h3>التعليقات:</h3>
                 <?php
-                // قراءة وعرض التعليقات إذا كان الملف موجوداً
                 if (file_exists($comments_file)) {
                     echo file_get_contents($comments_file);
                 } else {
-                    echo "<p>لا توجد تعليقات حتى الآن.</p>";
+                    echo "<p style='color: #777;'>لا توجد تعليقات حتى الآن.</p>";
                 }
                 ?>
             </div>
