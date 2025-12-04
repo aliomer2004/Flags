@@ -1,90 +1,48 @@
-<?php
-// --- كود PHP لمعالجة وحفظ التعليقات ---
-$comments_file = 'comments.txt'; 
-
-// التأكد من أن المستخدم ضغط على زر إرسال
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']); 
-    $comment = htmlspecialchars($_POST['message']); 
-
- // تأكد أن المتغيرات ليست فارغة
-    if (!empty($name) && !empty($comment)) {
-        
-        // --- التصحيح هنا ---
-        // يجب وضع المتغير $new_comment يساوي النص
-        $new_comment = "$name: $comment\n"; 
-        
-        // الآن الدالة ستجد المتغير $new_comment وتضيفه للملف
-        file_put_contents($comments_file, $new_comment, FILE_APPEND);
-    }
-}
-?>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!doctype html>
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية اليابان</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>نبذة عن اليابان</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      direction: rtl;
+      text-align: right;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      margin: auto;
+    }
+    img {
+      max-width: 200px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      background: #333;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <header>
-            <h1>إمبراطورية اليابان</h1>
-        </header>
-
-        <section class="info">
-            <h2>نبذة تعريفية</h2>
-            <p>
-                اليابان هي دولة جزرية تقع في شرق آسيا في المحيط الهادئ. تُعرف باسم "بلاد الشمس المشرقة". 
-                عاصمتها طوكيو، وتشتهر عالمياً بجمعها المذهل بين التقاليد القديمة (مثل معابد الشنتو والساموراي) 
-                والتكنولوجيا فائقة التطور وناطحات السحاب الحديثة.
-            </p>
-        </section>
-
-        <section class="media">
-            <div class="card">
-                <h3>علم الدولة</h3>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png" alt="علم اليابان">
-            </div>
-
-            <div class="card">
-                <h3>خريطة الدولة</h3>
-                <img src="Jap.png" alt="خريطة اليابان">
-            </div>
-        </section>
-
-        <footer>
-            <a href="https://ar.wikipedia.org/wiki/اليابان" target="_blank" class="wiki-btn">
-                اضغط هنا لمعلومات أكثر عن اليابان
-            </a>
-        </footer>
-
-        <hr>
-
-        <section class="comments-section">
-            <h2>شاركنا رأيك عن اليابان</h2>
-            
-            <form action="index.php" method="POST" class="comment-form">
-                <input type="text" name="name" placeholder="اسمك الكريم" required>
-                <textarea name="message" placeholder="اكتب تعليقك هنا..." required></textarea>
-                <button type="submit">إرسال التعليق</button>
-            </form>
-
-            <div class="comments-list">
-                <h3>التعليقات:</h3>
-                <?php
-                if (file_exists($comments_file)) {
-                    echo file_get_contents($comments_file);
-                } else {
-                    echo "<p style='color: #777;'>لا توجد تعليقات حتى الآن.</p>";
-                }
-                ?>
-            </div>
-        </section>
-
-    </div>
-
+  <div class="card">
+    <h1>اليابان</h1>
+    <p>اليابان دولة جزرية في شرق آسيا، معروفة بتقدمها التكنولوجي وثقافتها العريقة.</p>
+    <h3>علم اليابان</h3>
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg" alt="علم اليابان">
+    <h3>خريطة اليابان</h3>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Japan_map.png" alt="خريطة اليابان">
+    <a href="https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%8A%D8%A7%D8%A8%D8%A7%D9%86" target="_blank">ويكيبيديا اليابان</a>
+  </div>
 </body>
 </html>
